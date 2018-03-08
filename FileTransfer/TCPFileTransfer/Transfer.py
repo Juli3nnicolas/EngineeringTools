@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 # Send a file. The recipient must run Receive.py
 # Transfer.py [-p port_number] recipient's_ip path_to_file
 # The port by default is 8888.
@@ -15,9 +17,9 @@ def SendFile(_path, _socket):
     # Send content
     _socket.send(content)
 
-ADDR = "localhost"
+ADDR = "192.168.1.95"
 PORT = 8888
-PATH = "C:\\Users\\junic\\Desktop\\foo.txt"
+PATH = "C:\\Users\\junic\\Desktop\\Transfer\\Tree.jpg"
 
 # Create TCP socket
 s = socket(AF_INET, SOCK_STREAM)

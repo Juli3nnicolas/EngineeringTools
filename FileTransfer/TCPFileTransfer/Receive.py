@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 # Receive a file from Transfer.py. One must run Transfer.py for
 # this script to receive the file.
 # The port by default is 8888.
@@ -18,7 +20,7 @@ def CreateFile(_path, _content):
 PORT = 8888
 PATH = "C:\\Users\\junic\\Desktop\\Receive\\" #os.getcwd()
 ADDR = "localhost"
-MAX_RECEPTION_SIZE = 50 * 1024 * 1024 * 1024 # 50 GiB
+MAX_RECEPTION_SIZE = 4096 # 4 KiB
 
 # Waiting file
 print("Waiting file...")
