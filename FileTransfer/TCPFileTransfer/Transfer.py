@@ -8,21 +8,22 @@
 #   Transfer.py -p 8888 192.168.1.10 C:\Users\bob\Desktop\foo.txt
 
 from socket import *
+import os
 
 def SendFile(_path, _socket):
     # Open the file and store its content
     file = open(_path, "rb")
     content = file.read()
-    file_size = file.file_size
+    file_size = os.stat(_path).st_size
 
     # Send content
     count = 0
     while count < file_size:
         count += _socket.send(content)
 
-ADDR = "192.168.1.95"
+ADDR = "192.168.1.34"
 PORT = 8888
-PATH = "C:\\Users\\junic\\Desktop\\Transfer\\Tree.jpg"
+PATH = "/Users/juliennicolas/Desktop/Transfer/Image1.jpg"
 
 # Create TCP socket
 s = socket(AF_INET, SOCK_STREAM)
