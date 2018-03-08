@@ -19,20 +19,25 @@ def CreateFile(_path, _content):
 
 PORT = 8888
 PATH = "C:\\Users\\junic\\Desktop\\Receive\\" #os.getcwd()
-ADDR = "localhost"
 MAX_RECEPTION_SIZE = 4096 # 4 KiB
 
 # Waiting file
-print("Waiting file...")
 s = socket(AF_INET, SOCK_STREAM)
-s.bind(('', PORT))
+s.bind(('', PORT))              # Allow connections to any addresses owned by this machine
 s.listen(1)                     # Listen  but allow no more than 1 pending connection
+print("Waiting file...")
 
 # Download file
 peer, peer_addr = s.accept()    # Accept first connection 
 print("Connected to " + str(peer_addr))
 print("Downloading file...")
-content = peer.recv(MAX_RECEPTION_SIZE)
+
+content = bytes()
+read_msg = bytes('1')
+while read_msg != 0:
+    read_msg = peer.recv(MAX_RECEPTION_SIZE)
+    content += read_msg
+
 peer.close()                    # File download is done so we stop the connection
 s.close()                       # Currently, files can only be sent one by one. No further connections allowed.
 

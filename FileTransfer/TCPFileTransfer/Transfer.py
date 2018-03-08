@@ -13,9 +13,12 @@ def SendFile(_path, _socket):
     # Open the file and store its content
     file = open(_path, "rb")
     content = file.read()
+    file_size = file.file_size
 
     # Send content
-    _socket.send(content)
+    count = 0
+    while count < file_size:
+        count += _socket.send(content)
 
 ADDR = "192.168.1.95"
 PORT = 8888
