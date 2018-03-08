@@ -33,8 +33,9 @@ print("Connected to " + str(peer_addr))
 print("Downloading file...")
 
 content = bytes()
-read_msg = bytes('1')
-while read_msg != 0:
+read_msg = "a"
+EMPTY = bytes()
+while read_msg != EMPTY:
     read_msg = peer.recv(MAX_RECEPTION_SIZE)
     content += read_msg
 
