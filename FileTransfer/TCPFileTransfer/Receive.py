@@ -18,7 +18,7 @@ def CreateFile(_path, _content):
     file.close()
 
 PORT = 8888
-PATH = "C:\\Users\\junic\\Desktop\\Receive\\" #os.getcwd()
+PATH = "/Users/juliennicolas/Desktop/Receive/" #os.getcwd()
 MAX_RECEPTION_SIZE = 4096 # 4 KiB
 
 # Waiting file
