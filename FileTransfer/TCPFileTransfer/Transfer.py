@@ -7,7 +7,7 @@
 #   Transfer.py 192.168.1.10 C:\Users\bob\Desktop\foo.txt
 #   Transfer.py --port 8888 192.168.1.10 C:\Users\bob\Desktop\foo.txt
 
-from socket import *
+import socket
 import os
 from sys import argv
 
@@ -19,14 +19,16 @@ HELP_MSG_FULL = HELP_MSG_SYNTAX + "\n" + HELP_MSG_EXAMPLE
 # Read input parameters
 NB_REQUIRED_ARGS = 3
 if len(argv) != NB_REQUIRED_ARGS and len(argv) != (NB_REQUIRED_ARGS + 2):
-    raise RuntimeError("Wrong number of parameters\n" + HELP_MSG_FULL)
+    print("Wrong number of parameters\n" + HELP_MSG_FULL)
+    exit()
 
 flag_index = -1
 PORT = 8888
 if "--port" in argv:
     flag_index = argv.index("--port")
     if flag_index != 1:
-        raise RuntimeError("Wrong parameter.\n" + HELP_MSG_FULL)
+        print("Wrong parameter.\n" + HELP_MSG_FULL)
+        exit()
 
     PORT = argv[flag_index + 1]
 
@@ -45,20 +47,21 @@ def SendFile(_path, _socket):
         count += _socket.send(content)
 
 # Create TCP socket
-s = socket(AF_INET, SOCK_STREAM)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
     s.connect((ADDR, PORT))
-    SendFile(PATH, s)
     print("Sending file " + PATH + " to " + ADDR)
-except ConnectionError:
-    print("Couldn't connect to " + ADDR)
-    
-except FileExistsError:
-    print("Couldn't open file. Path is " + PATH)
-    s.close()
-    print("Failure")
-    exit()
+    SendFile(PATH, s)
+    print("Success.")
 
-s.close()
-print("Success.")
+except ConnectionError as error:
+    print("Couldn't connect to " + ADDR)
+    print("Error description - " + str(error))
+    print("Failure.")
+except OSError as error:
+    print("Cannot open file. Path - " + PATH)
+    print("Error description - " + str(error))
+    print("Failure.")
+finally:
+    s.close()
