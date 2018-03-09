@@ -30,7 +30,7 @@ if "--port" in argv:
         print("Wrong parameter.\n" + HELP_MSG_FULL)
         exit()
 
-    PORT = argv[flag_index + 1]
+    PORT = int(argv[flag_index + 1])
 
 ADDR = argv[flag_index+2]
 PATH = argv[flag_index+3]
@@ -56,7 +56,7 @@ try:
     print("Success.")
 
 except ConnectionError as error:
-    print("Couldn't connect to " + ADDR)
+    print("Couldn't connect to " + ADDR + ":" + str(PORT))
     print("Error description - " + str(error))
     print("Failure.")
 except OSError as error:
