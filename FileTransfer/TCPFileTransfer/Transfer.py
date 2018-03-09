@@ -11,12 +11,14 @@ import socket
 import os
 from sys import argv
 
-# Help or error messages
+
+### H E L P   O R   E R R O R   M E S S A G E S
 HELP_MSG_SYNTAX = "Syntax - Transfer.py [--port port_number] ip_recipient full_path_to_file"
 HELP_MSG_EXAMPLE = "Example - Transfer.py --port 8888 192.168.1.10 C:\\Users\\bob\\Desktop\\foo.txt"
 HELP_MSG_FULL = HELP_MSG_SYNTAX + "\n" + HELP_MSG_EXAMPLE
 
-# Read input parameters
+
+### I N P U T   P A R A M E T E R S
 NB_REQUIRED_ARGS = 3
 if len(argv) != NB_REQUIRED_ARGS and len(argv) != (NB_REQUIRED_ARGS + 2):
     print("Wrong number of parameters\n" + HELP_MSG_FULL)
@@ -35,6 +37,11 @@ if "--port" in argv:
 ADDR = argv[flag_index+2]
 PATH = argv[flag_index+3]
 
+if '/' in PATH and '\\' in PATH:
+	print("Error, bad path value. Path - " + PATH)
+	exit()
+
+### F U N C T I O N S
 def SendFile(_path, _socket):
     # Open the file and store its content
     file = open(_path, "rb")
@@ -46,6 +53,7 @@ def SendFile(_path, _socket):
     while count < file_size:
         count += _socket.send(content)
 
+### M A I N   S C R I P T
 # Create TCP socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
