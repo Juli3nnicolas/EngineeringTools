@@ -1,24 +1,62 @@
 #! /usr/bin/python
 
-# Receive a file from Transfer.py. One must run Transfer.py for
-# this script to receive the file.
+# Receive a file from Transfer.py. This script MUST be run first.
 # The port by default is 8888.
-# By default, the file received is saved in the script's current working directory, so make sure it has write access.
-# Receive.py [--port port] [--path path_to_write_file] Transfer.py_ip
-# Example: Receive.py --port 8888 --path C:\Users\ken\Desktop 192.168.1.12
+# Receive.py [--port port] path_to_write_file
+# Example: Receive.py --port 8888 C:\Users\ken\Desktop
 
 from socket import *
+from sys import argv
 import os
 import time
 
+### HELP AND ERROR MESSAGES
+HELP_MSG_SYNTAX = "Syntax - Receive.py [--port port] path_to_write_file"
+HELP_MSG_EXAMPLE = "Example - Example: Receive.py --port 8888 C:\Users\ken\Desktop"
+HELP_MSG_FULL = HELP_MSG_SYNTAX + "\n" + HELP_MSG_EXAMPLE
+
+
+### I N P U T   P A R A M E T E R S
+NB_REQUIRED_PM = 2
+if len(argv) != NB_REQUIRED_PM and len(argv) != (NB_REQUIRED_PM + 2):
+	print("Error, wrong parameters")
+	print(HELP_MSG_FULL)
+	exit()
+
+# Set port
+PORT = 8888
+pm_offset = -1 
+if "--port" in argv:
+	pm_offset += 2 
+	index = argv.index("--port")
+	if index != 1:
+		print("Error, bad syntax")
+		print(HELP_MSG_FULL)
+		exit()
+	PORT = int(argv[index+1])
+	
+# Set Path
+PATH = argv[pm_offset + 2]
+if '/' in PATH and '\\' in PATH:
+	print("Error, bad path value. Path - " + PATH)
+	exit()
+
+if '/' in PATH and PATH[-1:] != '/':
+	PATH += '/'
+	
+if '\\' in PATH and PATH[-1:] != '\\':
+	PATH += '\\'
+
+
+# F U N C T I O N S
 def CreateFile(_path, _content):
     full_path = _path + "download_" + str(time.time()) + ".txt"
     file = open(full_path, "wb")
     file.write(_content)
     file.close()
 
-PORT = 8888
-PATH = "/Users/juliennicolas/Desktop/Receive/" #os.getcwd()
+
+### M A I N   S C R I P T
 MAX_RECEPTION_SIZE = 4096 # 4 KiB
 
 # Waiting file
