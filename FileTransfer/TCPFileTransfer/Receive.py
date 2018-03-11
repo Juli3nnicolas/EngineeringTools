@@ -12,7 +12,7 @@ import time
 
 ### HELP AND ERROR MESSAGES
 HELP_MSG_SYNTAX = "Syntax - Receive.py [--port port] path_to_write_file"
-HELP_MSG_EXAMPLE = "Example - Example: Receive.py --port 8888 C:\Users\ken\Desktop"
+HELP_MSG_EXAMPLE = "Example - Example: Receive.py --port 8888 C:\\Users\\ken\\Desktop"
 HELP_MSG_FULL = HELP_MSG_SYNTAX + "\n" + HELP_MSG_EXAMPLE
 
 
