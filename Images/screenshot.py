@@ -12,7 +12,6 @@ if len(argv) != 3:
 
 PATH = argv[1]
 NAME = argv[2]
-SEPARATOR = ''
 
 if len(NAME.split('.')) < 2:
     print("Error, wrong file format. Your file name must be something like 'myfile.png'")
