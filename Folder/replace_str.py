@@ -1,10 +1,19 @@
 #! /usr/local/bin/python3
 
+# This script replaces all occurrences of a string
+# in all files of a root directory.
+# Change the value of the 3 variables below to have
+# the right behaviour:
+# root_dir - directory from which all files will be checked
+# and their content replaced
+# text_to_change - string to replaced in the files
+# replacing_content - content to be used instead of text_to_change
+
 import os
 
 # CONSTANTS
 
-root_dir = "/Users/juliennicolas/Documents/Work/Billing/Projects/api-permission/internal"
+root_dir = ""
 
 text_to_change = """\tconf := helpers.GetDBConfig()
 \tdb, err := helpers.Connect(conf)
