@@ -15,6 +15,6 @@ Then set the environment variables with your own data.
 Finally run the two following commands to build the image and run the container.
 
 ```
-docker image build -t dev_ubuntu_latest .
+docker image build -t dev_ubuntu:latest .
 docker run --name dev_<project_name> --env-file env.list -v <path_to_project_root>:/app -it dev_ubuntu_latest /bin/bash
 ```
